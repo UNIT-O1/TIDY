@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "TempDrop - Ephemeral Downloads",
+  "version": "1.0.0",
+  "description": "Choose Temporary or Permanent for every download. Ephemeral files automatically move to the OS Recycle Bin / Trash after your retention window.",
+  "permissions": [
+    "downloads",
+    "storage",
+    "alarms",
+    "notifications",
+    "nativeMessaging"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon128.png",
+    "default_title": "TempDrop Dashboard"
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "minimum_chrome_version": "116"
+}

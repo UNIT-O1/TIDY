@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TempDrop - Ephemeral Download</title>
+  <link rel="stylesheet" href="prompt.css">
+</head>
+<body>
+  <div class="prompt-container">
+    <!-- Header -->
+    <header class="prompt-header">
+      <div class="brand">
+        <img src="icons/icon48.png" alt="TempDrop Logo" class="brand-icon">
+        <div>
+          <h1 class="brand-title">TempDrop</h1>
+          <span class="brand-subtitle">Download Classifier</span>
+        </div>
+      </div>
+      <div class="timer-badge" id="timerBadge" title="Auto-defaults to Permanent when timer reaches zero">
+        <span class="timer-dot"></span>
+        <span id="timerText">15s</span>
+      </div>
+    </header>
+
+    <!-- File Information Card -->
+    <div class="file-card">
+      <div class="file-icon-box" id="fileIconBox">
+        <svg class="file-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+        </svg>
+        <span class="file-ext-tag" id="fileExtTag">FILE</span>
+      </div>
+      <div class="file-details">
+        <div class="file-name" id="fileName" title="Pending Download">filename.ext</div>
+        <div class="file-meta">
+          <span class="file-size" id="fileSize">0 KB</span>
+          <span class="meta-dot">•</span>
+          <span class="file-domain" id="fileDomain">example.com</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Decision Buttons -->
+    <div class="decision-grid">
+      <button class="choice-btn choice-temp" id="btnTemporary">
+        <div class="btn-glow"></div>
+        <div class="btn-content">
+          <div class="btn-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="btn-text">
+            <span class="btn-title">Temporary</span>
+            <span class="btn-desc">Auto-recycle later <kbd>T</kbd></span>
+          </div>
+        </div>
+      </button>
+
+      <button class="choice-btn choice-perm" id="btnPermanent">
+        <div class="btn-content">
+          <div class="btn-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+          </div>
+          <div class="btn-text">
+            <span class="btn-title">Permanent</span>
+            <span class="btn-desc">Keep forever <kbd>P</kbd></span>
+          </div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Retention Duration Controls -->
+    <div class="retention-section">
+      <label class="section-label" for="retentionSelect">Retention Period:</label>
+      <div class="retention-pill-group">
+        <button type="button" class="pill" data-days="1">1 Day</button>
+        <button type="button" class="pill" data-days="3">3 Days</button>
+        <button type="button" class="pill active" data-days="7">7 Days</button>
+        <button type="button" class="pill" data-days="14">14 Days</button>
+        <button type="button" class="pill" data-days="30">30 Days</button>
+      </div>
+    </div>
+
+    <!-- Rule Persistence Option -->
+    <div class="rule-option">
+      <label class="checkbox-container">
+        <input type="checkbox" id="chkRememberRule">
+        <span class="checkmark"></span>
+        <span class="checkbox-label" id="lblRememberRule">Always use this choice for this domain</span>
+      </label>
+    </div>
+
+    <!-- Bottom Timeout Progress Bar -->
+    <div class="timer-bar-container" id="timerBarContainer" title="Hover to pause timeout">
+      <div class="timer-bar" id="timerBar"></div>
+    </div>
+  </div>
+
+  <script src="prompt.js" type="module"></script>
+</body>
+</html>

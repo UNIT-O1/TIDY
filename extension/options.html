@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TempDrop - Settings & Downloads Dashboard</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img src="icons/icon48.png" alt="TempDrop" class="logo-img">
+        <div class="brand-text">
+          <h2>TempDrop</h2>
+          <span>Ephemeral Downloads</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="tab-files">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <span>Tracked Files</span>
+          <span class="nav-badge" id="navFilesBadge">0</span>
+        </button>
+
+        <button class="nav-item" data-tab="tab-rules">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <span>Routing Rules</span>
+        </button>
+
+        <button class="nav-item" data-tab="tab-settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Preferences</span>
+        </button>
+
+        <button class="nav-item" data-tab="tab-native">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+            <line x1="6" y1="6" x2="6.01" y2="6"></line>
+            <line x1="6" y1="18" x2="6.01" y2="18"></line>
+          </svg>
+          <span>Native Helper</span>
+          <span class="status-dot-nav" id="navHostDot"></span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="staging-folder-card">
+          <div class="folder-title">Staging Directory</div>
+          <code class="folder-path">Downloads\Temporary\</code>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Overview Stats -->
+      <section class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-icon cyan">📦</div>
+          <div class="metric-details">
+            <span class="metric-label">Active Downloads</span>
+            <span class="metric-num" id="overviewActive">0</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon amber">⏳</div>
+          <div class="metric-details">
+            <span class="metric-label">Expiring &lt; 24 Hours</span>
+            <span class="metric-num" id="overviewExpiring">0</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon emerald">♻️</div>
+          <div class="metric-details">
+            <span class="metric-label">Moved to Recycle Bin</span>
+            <span class="metric-num" id="overviewTrashed">0</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon indigo">💾</div>
+          <div class="metric-details">
+            <span class="metric-label">Staging Storage Saved</span>
+            <span class="metric-num" id="overviewSavedSpace">0 MB</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 1: Tracked Files -->
+      <section class="tab-pane active" id="tab-files">
+        <div class="pane-header">
+          <div>
+            <h2 class="pane-title">Tracked Ephemeral Files</h2>
+            <p class="pane-desc">All downloads staged in <code>Downloads/Temporary</code> with scheduled Recycle Bin expirations.</p>
+          </div>
+          <div class="pane-actions">
+            <button class="btn btn-secondary" id="btnOptionsSweep">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-svg">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+              <span>Run Expiry Sweep</span>
+            </button>
+            <button class="btn btn-outline" id="btnClearFinished">Clean History</button>
+          </div>
+        </div>
+
+        <!-- Filter and Search Toolbar -->
+        <div class="table-toolbar">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="fileSearchInput" placeholder="Search files, domains or extensions...">
+          </div>
+
+          <div class="filter-chips">
+            <button class="chip active" data-filter="all">All</button>
+            <button class="chip" data-filter="active">Active</button>
+            <button class="chip" data-filter="expiring-soon">Expiring Soon</button>
+            <button class="chip" data-filter="trashed">Recycled</button>
+            <button class="chip" data-filter="missing">Missing / Promoted</button>
+          </div>
+        </div>
+
+        <!-- Files Data Table -->
+        <div class="table-container">
+          <table class="data-table" id="filesTable">
+            <thead>
+              <tr>
+                <th style="width: 35%;">File Name</th>
+                <th style="width: 15%;">Origin</th>
+                <th style="width: 12%;">Size</th>
+                <th style="width: 18%;">Expires In</th>
+                <th style="width: 10%;">Status</th>
+                <th style="width: 10%; text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="filesTableBody">
+              <!-- Rendered via options.js -->
+            </tbody>
+          </table>
+          <div class="table-empty" id="tableEmptyNotice" style="display: none;">
+            <p>No downloads match the current search / filter criteria.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: Routing Rules -->
+      <section class="tab-pane" id="tab-rules">
+        <div class="pane-header">
+          <div>
+            <h2 class="pane-title">Auto-Classification Rules</h2>
+            <p class="pane-desc">Skip download prompts by automatically routing specific websites or file extensions.</p>
+          </div>
+          <button class="btn btn-primary" id="btnAddNewRule">
+            <span>+ Add Rule</span>
+          </button>
+        </div>
+
+        <!-- Rule Creation Modal / Inline Form -->
+        <div class="rule-card-form" id="ruleFormCard" style="display: none;">
+          <h3 class="form-title" id="ruleFormTitle">Create New Routing Rule</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Match Type</label>
+              <select id="ruleMatchType" class="form-select">
+                <option value="domain">Domain Match (e.g., *.slack.com)</option>
+                <option value="extension">File Extension (e.g., dmg, pdf)</option>
+                <option value="both">Both Domain &amp; Extension</option>
+              </select>
+            </div>
+            <div class="form-group" id="groupPattern">
+              <label id="lblRulePattern">Domain Pattern</label>
+              <input type="text" id="rulePattern" class="form-input" placeholder="*.slack.com">
+            </div>
+            <div class="form-group" id="groupDomainPattern" style="display: none;">
+              <label>Domain</label>
+              <input type="text" id="ruleDomainPattern" class="form-input" placeholder="invoices.company.com">
+            </div>
+            <div class="form-group" id="groupExtPattern" style="display: none;">
+              <label>Extension</label>
+              <input type="text" id="ruleExtPattern" class="form-input" placeholder="pdf">
+            </div>
+            <div class="form-group">
+              <label>Classification Action</label>
+              <select id="ruleChoice" class="form-select">
+                <option value="temporary">Temporary (Auto-Recycle)</option>
+                <option value="permanent">Permanent (Keep)</option>
+              </select>
+            </div>
+            <div class="form-group" id="groupRuleRetention">
+              <label>Retention Duration (Days)</label>
+              <input type="number" id="ruleRetentionDays" class="form-input" min="1" max="365" value="7">
+            </div>
+          </div>
+          <div class="form-buttons">
+            <button class="btn btn-secondary" id="btnCancelRule">Cancel</button>
+            <button class="btn btn-primary" id="btnSaveRule">Save Rule</button>
+          </div>
+        </div>
+
+        <!-- Rules List -->
+        <div class="rules-list" id="rulesListContainer">
+          <!-- Rendered via options.js -->
+        </div>
+      </section>
+
+      <!-- TAB 3: Preferences -->
+      <section class="tab-pane" id="tab-settings">
+        <div class="pane-header">
+          <div>
+            <h2 class="pane-title">Global Preferences</h2>
+            <p class="pane-desc">Customize default expiration timelines, notification warnings, and background scheduler settings.</p>
+          </div>
+          <button class="btn btn-primary" id="btnSaveSettings">Save Preferences</button>
+        </div>
+
+        <div class="settings-card-grid">
+          <!-- Default Retention -->
+          <div class="setting-card">
+            <div class="setting-header">
+              <span class="setting-title">Default Retention Window</span>
+              <span class="setting-desc">How long temporary downloads stay in <code>Downloads/Temporary</code> before moving to Recycle Bin.</span>
+            </div>
+            <div class="setting-control">
+              <div class="range-wrapper">
+                <input type="range" id="settingRetentionSlider" min="1" max="30" step="1" value="7">
+                <span class="range-val" id="settingRetentionVal">7 Days</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Warning Lead Time -->
+          <div class="setting-card">
+            <div class="setting-header">
+              <span class="setting-title">Expiry Warning Lead Time</span>
+              <span class="setting-desc">Show a desktop notification before a temporary download is moved to Recycle Bin.</span>
+            </div>
+            <div class="setting-control">
+              <select id="settingWarnHours" class="form-select">
+                <option value="12">12 Hours Before Expiry</option>
+                <option value="24" selected>24 Hours Before Expiry (Default)</option>
+                <option value="48">48 Hours Before Expiry</option>
+                <option value="0">Disabled (No warnings)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Interception Prompt Timeout -->
+          <div class="setting-card">
+            <div class="setting-header">
+              <span class="setting-title">Prompt Timeout Fallback</span>
+              <span class="setting-desc">Seconds before the download prompt automatically defaults to Permanent to avoid hanging downloads.</span>
+            </div>
+            <div class="setting-control">
+              <select id="settingPromptTimeout" class="form-select">
+                <option value="10">10 Seconds</option>
+                <option value="15" selected>15 Seconds (Default)</option>
+                <option value="30">30 Seconds</option>
+                <option value="60">60 Seconds</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Desktop Notifications -->
+          <div class="setting-card">
+            <div class="setting-header">
+              <span class="setting-title">Desktop Notifications</span>
+              <span class="setting-desc">Notify when files are auto-classified, expiring soon, or moved to Recycle Bin.</span>
+            </div>
+            <div class="setting-control">
+              <label class="switch">
+                <input type="checkbox" id="settingShowNotifications" checked>
+                <span class="slider-round"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Fast Debug Mode -->
+          <div class="setting-card">
+            <div class="setting-header">
+              <span class="setting-title">Fast Expiry Debug Mode</span>
+              <span class="setting-desc">Treats retention days as minutes for rapid testing of end-to-end expiry workflows.</span>
+            </div>
+            <div class="setting-control">
+              <label class="switch">
+                <input type="checkbox" id="settingFastDebug">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: Native Helper -->
+      <section class="tab-pane" id="tab-native">
+        <div class="pane-header">
+          <div>
+            <h2 class="pane-title">Native Messaging Helper Diagnostic</h2>
+            <p class="pane-desc">TempDrop communicates with an OS helper to safely move expired files to the OS Recycle Bin / Trash.</p>
+          </div>
+          <button class="btn btn-secondary" id="btnTestNativePing">
+            <span>Ping Native Host</span>
+          </button>
+        </div>
+
+        <div class="native-diagnostic-card" id="nativeDiagnosticCard">
+          <div class="diag-status-row">
+            <div class="diag-indicator" id="diagIndicator">
+              <span class="diag-dot"></span>
+              <span class="diag-title" id="diagTitle">Checking Native Host...</span>
+            </div>
+            <span class="diag-tag" id="diagTag">UNKNOWN</span>
+          </div>
+
+          <p class="diag-desc" id="diagDesc">Performing communication check over Chrome Native Messaging protocol.</p>
+        </div>
+
+        <!-- Setup Instructions Card -->
+        <div class="helper-setup-card">
+          <h3 class="setup-heading">1-Click Host Registration</h3>
+          <p class="setup-sub">Because browser extensions run inside a security sandbox, Chrome requires a registered local JSON manifest to enable communication with the helper.</p>
+
+          <div class="os-setup-tabs">
+            <div class="setup-step">
+              <div class="step-badge">Windows</div>
+              <div class="step-text">Run the included setup script from your TempDrop directory:</div>
+              <pre class="code-box"><code>powershell -ExecutionPolicy Bypass -File "installer\windows\install.ps1"</code></pre>
+            </div>
+
+            <div class="setup-step">
+              <div class="step-badge">macOS / Linux</div>
+              <div class="step-text">Run the bash installer to register the manifest:</div>
+              <pre class="code-box"><code>bash installer/macos/install.sh  # or installer/linux/install.sh</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="options.js" type="module"></script>
+</body>
+</html>

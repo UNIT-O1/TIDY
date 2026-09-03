@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TempDrop Dashboard</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Top Header -->
+    <header class="header">
+      <div class="brand">
+        <img src="icons/icon48.png" alt="TempDrop" class="brand-icon">
+        <div>
+          <h1 class="brand-title">TempDrop</h1>
+          <span class="brand-ver">v1.0.0</span>
+        </div>
+      </div>
+      <div class="host-pill" id="hostStatusPill" title="Native Messaging Host Status">
+        <span class="status-dot"></span>
+        <span id="hostStatusText">Checking...</span>
+      </div>
+    </header>
+
+    <!-- Helper Missing Notice (Conditional) -->
+    <div class="helper-banner" id="helperBanner" style="display: none;">
+      <div class="banner-icon">⚠️</div>
+      <div class="banner-text">
+        <strong>Helper Required for Auto-Recycle</strong>
+        <span>Downloads are staged in <code>Temporary/</code>. Run installer to enable Recycle Bin auto-trash.</span>
+      </div>
+      <button class="banner-btn" id="btnOpenHelperSettings">Setup</button>
+    </div>
+
+    <!-- Quick Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="statActiveCount">0</div>
+        <div class="stat-label">Active Temp</div>
+      </div>
+      <div class="stat-card stat-warn">
+        <div class="stat-value" id="statExpiringCount">0</div>
+        <div class="stat-label">Expiring Soon</div>
+      </div>
+      <div class="stat-card stat-clean">
+        <div class="stat-value" id="statSavedSpace">0 MB</div>
+        <div class="stat-label">Recycled</div>
+      </div>
+    </div>
+
+    <!-- Active Downloads Section -->
+    <section class="list-section">
+      <div class="section-header">
+        <span class="section-title">Tracked Ephemeral Files</span>
+        <button class="icon-action-btn" id="btnSweepNow" title="Trigger instant expiry sweep">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          <span>Sweep Now</span>
+        </button>
+      </div>
+
+      <!-- File List -->
+      <div class="file-list" id="fileList">
+        <!-- Dynamic items populated by popup.js -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-icon">✨</div>
+        <div class="empty-title">Downloads Staging Clean</div>
+        <div class="empty-desc">Any temporary downloads you save will appear here with active countdowns.</div>
+      </div>
+    </section>
+
+    <!-- Footer Controls -->
+    <footer class="footer">
+      <button class="footer-btn" id="btnOpenOptions">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Options & Rules</span>
+      </button>
+
+      <a href="#" class="folder-link" id="btnOpenDownloadsFolder" title="Downloads are saved to Downloads/Temporary">
+        <span>Downloads/Temporary/</span>
+      </a>
+    </footer>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

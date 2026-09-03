@@ -1,0 +1,10 @@
+﻿{
+    "path":  "C:\\Users\\Dhruv\\Desktop\\New folder\\tempdrop\\native-host\\tempdrop_host.bat",
+    "description":  "TempDrop Native Host - Moves expired downloads to Recycle Bin / Trash",
+    "name":  "com.tempdrop.host",
+    "allowed_origins":  [
+                            "chrome-extension://*/*",
+                            "chrome-extension://*/"
+                        ],
+    "type":  "stdio"
+}
