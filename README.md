@@ -1,6 +1,6 @@
 <div align="center">
 
-# TempDrop
+# TIDY
 
 ### Self-Expiring, Recycle-Bin-Bound Browser Downloads
 
@@ -10,7 +10,7 @@
 [![Recoverable](https://img.shields.io/badge/deletion-never%20permanent-brightgreen?style=for-the-badge)](#security--privacy-guarantees)
 
 > **An Architecture for Self-Expiring, Recycle-Bin-Bound Browser Downloads**
-> Built strictly to the TempDrop Engineering Whitepaper specification.
+> Built strictly to the TIDY Engineering Whitepaper specification.
 
 </div>
 
@@ -39,18 +39,18 @@ None of these are ever deliberately deleted, because deleting things is a chore 
 The result is a folder that grows forever and a cleanup task that never feels safe enough to actually do.
 
 > [!TIP]
-> ### What TempDrop does about it
-> TempDrop lets you classify any download as **Temporary** or **Permanent** at the moment it lands, gives temporary files an expiry timestamp, and — when that timestamp passes — moves them to the OS Recycle Bin rather than deleting them outright. Cleanup becomes automatic, and it's never irreversible.
+> ### What TIDY does about it
+> TIDY lets you classify any download as **Temporary** or **Permanent** at the moment it lands, gives temporary files an expiry timestamp, and — when that timestamp passes — moves them to the OS Recycle Bin rather than deleting them outright. Cleanup becomes automatic, and it's never irreversible.
 
 <br>
 
 ## Overview
 
-**TempDrop** solves this by letting you classify any download as **Temporary** or **Permanent** right at download time:
+**TIDY** solves this by letting you classify any download as **Temporary** or **Permanent** right at download time:
 
 - **Temporary downloads** are segregated into `Downloads/Temporary/`.
 - Every temporary file carries an **expiry timestamp** (default: 7 days, fully customizable).
-- When a file expires, TempDrop moves it to your **OS Recycle Bin / Trash** (never permanently deleted outright, ensuring everything is restorable with standard OS Undo).
+- When a file expires, TIDY moves it to your **OS Recycle Bin / Trash** (never permanently deleted outright, ensuring everything is restorable with standard OS Undo).
 - **Graceful degradation**: If the native helper is not installed, downloads are still safely organized in `Downloads/Temporary/`.
 
 <br>
@@ -64,7 +64,7 @@ The result is a folder that grows forever and a cleanup task that never feels sa
                                              │ download event
                                              ▼
                              ┌───────────────────────────────┐
-                             │  TempDrop Extension (MV3)     │
+                             │  TIDY Extension (MV3)     │
                              │  • Prompt Interceptor         │
                              │  • Rules Classifier           │
                              │  • chrome.alarms Hourly Sweep │
@@ -79,7 +79,7 @@ The result is a folder that grows forever and a cleanup task that never feels sa
                                          expired? trash cmd │ (Native Messaging)
                                                             ▼
                                             ┌───────────────────────────┐
-                                            │ TempDrop Native Host (Py) │
+                                            │ TIDY Native Host (Py) │
                                             └───────────────┬───────────┘
                                                             │
                                       send2trash (OS Shell) │
@@ -172,7 +172,7 @@ node tempdrop/tests/test_rules.js
 ### 3. End-to-End Browser Test
 
 1. Trigger a download (e.g. download any PDF or image).
-2. The **TempDrop Prompt** will pop up asking:
+2. The **TIDY Prompt** will pop up asking:
    - **Temporary** (with chosen retention window: 1, 3, 7, 14, 30 days)
    - **Permanent** (keeps file unmodified)
 3. Choose **Temporary**. The file will download into `Downloads/Temporary/`.
@@ -195,6 +195,6 @@ node tempdrop/tests/test_rules.js
 
 <div align="center">
 
-**TempDrop** &middot; Cleanup that happens automatically, and is never irreversible.
+**TIDY** &middot; Cleanup that happens automatically, and is never irreversible.
 
 </div>
