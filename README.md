@@ -1,6 +1,6 @@
 <div align="center">
 
-# TIDY
+# TIDY (Temporary Item Deletion for You)
 
 ### Self-Expiring, Recycle-Bin-Bound Browser Downloads
 
